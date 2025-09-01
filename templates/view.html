@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if single_view %}
+    <h1>Patient Details</h1>
+    <div class="patient-card">
+        <p><strong>ID:</strong> {{ patient.id }}</p>
+        <p><strong>Name:</strong> {{ patient.name }}</p>
+        <p><strong>Age:</strong> {{ patient.age }}</p>
+        <p><strong>Gender:</strong> {{ patient.gender }}</p>
+        <p><strong>Condition:</strong> {{ patient.condition }}</p>
+        <div class="actions">
+            <a href="/update/{{ patient.id }}" class="btn">Edit</a>
+            <a href="/delete/{{ patient.id }}" class="btn danger">Delete</a>
+            <a href="/view" class="btn">Back to List</a>
+        </div>
+    </div>
+{% else %}
+    <h1>All Patients</h1>
+    {% if patients %}
+        <div class="patient-list">
+            {% for patient in patients %}
+            <div class="patient-card">
+                <h3>{{ patient.name }}</h3>
+                <p>Age: {{ patient.age }} | Gender: {{ patient.gender }}</p>
+                <p>Condition: {{ patient.condition }}</p>
+                <div class="actions">
+                    <a href="/view/{{ patient.id }}" class="btn">View</a>
+                    <a href="/update/{{ patient.id }}" class="btn">Edit</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No patients found. <a href="/create">Add a patient</a>.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}
